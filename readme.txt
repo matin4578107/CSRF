@@ -1,3 +1,5 @@
+Add automaticaly CSRF cheker to your project.
+
 Steps to use:
 
 Windows:
