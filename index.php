@@ -5,14 +5,7 @@
 
     $path_of_forms_page = "index.php";
     $csrf = new CSRF();
-    // $csrf->setCSRF($path_of_forms_page);
-    if(isset($_POST["CSRF"])) {
-	    if($_POST["CSRF"] == $_SESSION["CSRF"]) {
-		    /*Write code here*/
-	    } else {
-		    echo("CSRF Token not valid!!!");
-	    }
-    }
+    $csrf->setCSRF($path_of_forms_page);
     $csrf->generate();
 
 ?>
@@ -30,20 +23,14 @@
     <form method="post">
         <input type="text" name="name">
         <button type="submit">Submit</button>
-    
-	    <input type="text" name="CSRF" value="<?php echo($_SESSION["CSRF"]); ?>" hidden>
     </form>
 
     <form method="post">
         <input type="text" name="username">
         <input type="password" name="password">
         <button type="submit">Submit</button>
-    
-	    <input type="text" name="CSRF" value="<?php echo($_SESSION["CSRF"]); ?>" hidden>
     </form>
 
-    <form method="post">
-	    <input type="text" name="CSRF" value="<?php echo($_SESSION["CSRF"]); ?>" hidden>
-    </form>
+    <form method="post"></form>
 </body>
 </html>
