@@ -1,4 +1,4 @@
-Add automaticaly CSRF cheker to your project.
+Add automaticaly CSRF checker to your project.
 
 Steps to use:
 
