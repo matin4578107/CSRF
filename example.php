@@ -3,7 +3,7 @@
 
     use SRC\CSRF;
 
-    $path_of_forms_page = "index.php";
+    $path_of_forms_page = "example.php";
     $csrf = new CSRF();
     $csrf->setCSRF($path_of_forms_page);
     $csrf->generate();
