@@ -3,10 +3,20 @@
     class CSRF {
         
         public function searchForm(string $file_path) {
-            $file_text = file_get_contents($file_path);
-            // var_dump(htmlspecialchars($file_text));
-            $file_text = str_replace("</form>", '<input type="text" name="CSRF" value="<?php echo($_SESSION["CSRF"]); ?>" hidden></form>', $file_text);
-            file_put_contents($file_path, $file_text);
+            $temp_file = fopen($file_path, "r");
+  
+            $file_text = '';
+            while(!feof($temp_file)) {
+        
+                $temp_line = fgets($temp_file);
+                $wite_space_before = str_contains($temp_line, "</form>") ? str_replace(preg_replace('/^\s+/', '', $temp_line), '', $temp_line) : '';
+                $file_text .= str_contains($temp_line, "</form>") ? sprintf('%s%s<input type="text" name="CSRF" value="<?php echo($_SESSION["CSRF"]); ?>" hidden>%s', "\t", $wite_space_before, "\n") . $temp_line : $temp_line;
+            }
+            fclose($temp_file);
+
+            $temp_file = fopen($file_path, "w");
+            fwrite($temp_file, $file_text);
+            fclose($temp_file);
         }
 
         public function generate(int $length = 32) {
@@ -53,6 +63,5 @@
             file_put_contents($file_path, $file_text);
         }
     }
-    preg_replace('/[\x00-\x1F\x7F]/', '', $input);
 
 ?>
